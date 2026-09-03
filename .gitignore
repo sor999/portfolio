@@ -22,3 +22,10 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# supabase CLI
+supabase
+
+# env
+.env*
+!.env.example
