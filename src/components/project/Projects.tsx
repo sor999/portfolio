@@ -4,13 +4,13 @@ import { SectionHeader } from '../../shared/ui/SectionHeader.tsx'
 import { useState } from 'react'
 import ProjectDetailModal from './ProjectDetailModal.tsx'
 
-export default function Project({ title, subtitle, projects }: ProjectProps) {
+export default function Projects({ title, subtitle, projects }: ProjectProps) {
   const [selectedProject, setSelectedProject] = useState<ProjectItem | null>(
     null,
   )
 
   return (
-    <section id="project">
+    <section id="projects">
       <SectionHeader id="project-title" title={title} subtitle={subtitle} />
 
       <ul>

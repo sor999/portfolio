@@ -5,14 +5,14 @@ import Activity from './components/activity/Activity'
 import Blog from './components/blog/Blog'
 import Career from './components/career/Career'
 import Closing from './components/closing/Closing'
-import Project from './components/project/Project'
-import Skill from './components/skill/Skill'
+import Projects from './components/project/Projects.tsx'
+import Skills from './components/skill/Skills.tsx'
 import Navbar from './shared/ui/Navbar'
 
 // dummy data
 
 import type { ActivityItem } from './types/activity.types'
-import type { BlogItem } from './types/blog.types'
+import type { PostItem } from './types/post.types'
 import type { CareerItem } from './types/career.types'
 import type { ProjectItem } from './types/project.types'
 import type { SkillGroup } from './types/skill.types'
@@ -69,7 +69,7 @@ const skillGroups: SkillGroup[] = [
 const projects: ProjectItem[] = [
   {
     id: 1,
-    title: 'Portfolio Project',
+    title: 'PROJECTS',
     subtitle: '개인 포트폴리오 만들기',
     summary: '경력과 기술, 프로젝트를 소개하는 포트폴리오입니다.',
     description:
@@ -103,7 +103,7 @@ const activities: ActivityItem[] = [
   },
 ]
 
-const blogs: BlogItem[] = [
+const posts: PostItem[] = [
   {
     id: 1,
     title: 'React 컴포넌트 분리 기준 정리',
@@ -128,13 +128,13 @@ export default function App() {
         />
 
         <Career title="CAREER" subtitle="지금까지의 여정" careers={careers} />
-        <Skill title="SKILL" subtitle="기술 스택" groups={skillGroups} />
-        <Project title="PROJECT" subtitle="프로젝트" projects={projects} />
+        <Skills title="SKILL" subtitle="기술 스택" groups={skillGroups} />
+        <Projects title="PROJECT" subtitle="프로젝트" projects={projects} />
         <Activity title="ACTIVITY" subtitle="활동" activities={activities} />
         <Blog
-          title="BLOGS"
+          title="BLOG"
           subtitle="공부하고 기록한 글들"
-          blogs={blogs}
+          posts={posts}
         />
 
         <Closing
