@@ -20,8 +20,8 @@ const navItems = [
     label: 'ACTIVITY',
   },
   {
-    id: 'blogs',
-    label: 'BLOGS',
+    id: 'blog',
+    label: 'BLOG',
   },
 ]
 
