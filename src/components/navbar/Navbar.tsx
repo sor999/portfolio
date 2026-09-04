@@ -1,7 +1,9 @@
+import styles from './Navbar.module.css'
+
 const navItems = [
   {
-    id: 'home',
-    label: 'HOME',
+    id: 'about',
+    label: 'ABOUT',
   },
   {
     id: 'career',
@@ -27,12 +29,12 @@ const navItems = [
 
 export default function Navbar(){
   return (
-    <header>
-      <nav area-lable="주요 메뉴">
-        <ul>
+    <header className={styles.navbar}>
+      <nav className={styles.nav} area-lable="주요 메뉴">
+        <ul className={styles.list}>
           {navItems.map((item) => (
             <li key={item.id}>
-              <a href={`#${item.id}`}>{item.label}</a>
+              <a className={styles.link} href={`#${item.id}`}>{item.label}</a>
             </li>
           ))}
         </ul>
