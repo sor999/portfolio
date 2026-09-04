@@ -23,8 +23,8 @@ dist-ssr
 *.sln
 *.sw?
 
-# supabase CLI
-supabase
+# Supabase
+supabase/**
 
 # env
 .env*
