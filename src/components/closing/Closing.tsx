@@ -1,3 +1,4 @@
+import styles from './Closing.module.css'
 interface ClosingProps {
   headline: string
   description: string
@@ -12,11 +13,16 @@ export default function Closing({
   email,
 }: ClosingProps) {
   return (
-    <section id="closing">
-      <h2 id="closing-headline">{headline}</h2>
-      <p>{description}</p>
-
-      <a href={`mailto:${email}`}>{ctaText}</a>
+    <section className={styles.closing} id="closing">
+      <div className={styles.closingText}>
+        <h2 className={styles.headline} id="closing-headline">
+          {headline}
+        </h2>
+        <p className={styles.description}>{description}</p>
+      </div>
+      <a className={styles.ctaButton} href={`mailto:${email}`}>
+        {ctaText}
+      </a>
     </section>
   )
 }
