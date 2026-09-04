@@ -8,5 +8,4 @@ export interface CareerItem {
 export interface CareerProps {
   title: string
   subtitle: string
-  careers: CareerItem[]
 }

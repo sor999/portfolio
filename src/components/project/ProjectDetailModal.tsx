@@ -1,6 +1,8 @@
 import type { ProjectItem } from '../../types/project.types'
 import { useEffect, useRef } from 'react'
 
+import styles from './Projects.module.css'
+
 interface ProjectDetailModalProps {
   project: ProjectItem
   onClose: () => void
@@ -22,19 +24,25 @@ export default function ProjectDetailModal({
 
   return (
     <dialog
+      className={styles.modal}
       ref={dialogRef}
       aria-label={`${project.title} 상세보기`}
       onClose={onClose}
     >
-      <header>
-        <h2>{project.title}</h2>
+      <header className={styles.modalHeader}>
+        <h2 className={styles.modalTitle}>{project.title}</h2>
 
-        <button type="button" aria-label="모달 닫기" onClick={onClose}>
+        <button
+          className={styles.closeButton}
+          type="button"
+          aria-label="모달 닫기"
+          onClick={onClose}
+        >
           ×
         </button>
       </header>
 
-      <p>{project.description}</p>
+      <p className={styles.modalDescription}>{project.description}</p>
     </dialog>
   )
 }

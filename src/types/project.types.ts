@@ -15,5 +15,4 @@ export interface ProjectItem {
 export interface ProjectProps {
   title: string
   subtitle: string
-  projects: ProjectItem[]
 }

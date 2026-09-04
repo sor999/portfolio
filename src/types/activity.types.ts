@@ -10,5 +10,4 @@ export interface ActivityItem {
 export interface ActivityProps {
   title: string
   subtitle: string
-  activities: ActivityItem[]
 }
