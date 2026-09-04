@@ -13,5 +13,4 @@ export interface SkillGroup {
 export interface SkillProps {
   title: string
   subtitle: string
-  groups: SkillGroup[]
 }
