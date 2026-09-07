@@ -23,11 +23,7 @@ export default function Career({ title, subtitle }: CareerProps) {
   }, [])
 
   return (
-    <section
-      id="career"
-      className={styles.section}
-      aria-labelledby="career-title"
-    >
+    <section id="career" aria-labelledby="career-title">
       <SectionHeader id="career-title" title={title} subtitle={subtitle} />
       <ol className={styles.timeline}>
         {careers.map((career) => (

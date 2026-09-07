@@ -18,7 +18,7 @@ export default function Blog({ title, subtitle }: BlogProps) {
   }, [])
 
   return (
-    <section className={styles.section} id="blog" aria-labelledby="blog-title">
+    <section id="blog" aria-labelledby="blog-title">
       <SectionHeader id="blog-title" title={title} subtitle={subtitle} />
       <ul className={styles.postList}>
         {posts.map((post) => (
