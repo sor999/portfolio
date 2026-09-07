@@ -23,9 +23,9 @@ export default function App() {
 
         <Skills title="SKILL" subtitle="기술 스택" />
 
-        <Projects title="PROJECTS" subtitle="프로젝트" />
-
         <Activity title="ACTIVITY" subtitle="활동" />
+
+        <Projects title="PROJECTS" subtitle="프로젝트" />
 
         <Blog title="BLOGS" subtitle="공부하고 기록한 글들" />
 
