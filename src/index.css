@@ -52,8 +52,7 @@
   --shadow-card: 0 12px 32px rgb(23 29 42 / 8%);
   --shadow-card-hover: 0 18px 44px rgb(23 29 42 / 12%);
   --shadow-modal: 0 24px 64px rgb(15 23 42 / 24%);
-
-  font-family: 'Inter', Pretendard, sans-serif;
+  font-family: Pretendard, 'Inter', sans-serif;
   color: var(--color-text);
   background-color: var(--color-background);
 }
