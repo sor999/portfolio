@@ -1,0 +1,17 @@
+.header {
+  margin-bottom: var(--space-lg);
+}
+
+.headline {
+  color: var(--color-primary);
+  font-size: var(--font-size-heading-xl);
+  font-weight: var(--font-weight-extrabold);
+}
+
+.subtitle {
+  margin-top: var(--space-xs);
+  color: var(--color-text);
+  font-size: var(--font-size-heading-md);
+  font-weight: var(--font-weight-bold);
+  /*display: none;*/
+}

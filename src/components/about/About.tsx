@@ -1,4 +1,6 @@
 import styles from './About.module.css'
+import { FaGithub, FaLinkedinIn } from 'react-icons/fa'
+import { FiMail } from 'react-icons/fi'
 
 export default function About() {
   const about = {
@@ -19,10 +21,11 @@ export default function About() {
         <div className={styles.profileText}>
           <h2 className={styles.role}>Backend Developer</h2>
           <p className={styles.description}>
-            안녕하세요, 박현제입니다, 백엔드 개발자지만 프론트엔드에도 관심이 많아요.
-            <br/>
+            안녕하세요, 박현제입니다, 백엔드 개발자지만 프론트엔드에도 관심이
+            많아요.
+            <br />
             Spring/Java 기반 프로덕트를 만들고 데이터로 검증하는 일을
-            <br/>
+            <br />
             좋아합니다. 작은 디테일이 큰 신뢰를 만든다고 믿어요.
           </p>
 
@@ -31,20 +34,27 @@ export default function About() {
               rel="noreferrer": URL 정보를 상대 사이트에 전달하지 않음
           */}
           <nav className={styles.links} aria-label="프로필 링크">
-            <a href="mailto:sorsor999@naver.com">Email</a>
             <a
               href="https://github.com/sor999"
               target="_blank"
               rel="noreferrer"
             >
-              Github
+              <FaGithub aria-hidden="true" />
+              <span>Github</span>
             </a>
+
             <a
               href="https://www.linkedin.com/in/hyunje-park-02263a2a9/"
               target="_blank"
               rel="noreferrer"
             >
-              LinkedIn
+              <FaLinkedinIn aria-hidden="true" />
+              <span>LinkedIn</span>
+            </a>
+
+            <a href="mailto:sorsor999@naver.com">
+              <FiMail aria-hidden="true" />
+              <span>Email</span>
             </a>
           </nav>
         </div>

@@ -22,11 +22,7 @@ export default function Projects({ title, subtitle }: ProjectProps) {
   }, [])
 
   return (
-    <section
-      className={styles.section}
-      id="projects"
-      aria-labelledby="project-title"
-    >
+    <section id="projects" aria-labelledby="project-title">
       <SectionHeader id="project-title" title={title} subtitle={subtitle} />
 
       <ul className={styles.projectList}>

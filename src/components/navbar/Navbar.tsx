@@ -14,12 +14,12 @@ const navItems = [
     label: 'SKILLS',
   },
   {
-    id: 'projects',
-    label: 'PROJECTS',
-  },
-  {
     id: 'activity',
     label: 'ACTIVITY',
+  },
+  {
+    id: 'projects',
+    label: 'PROJECTS',
   },
   {
     id: 'blog',

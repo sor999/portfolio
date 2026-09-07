@@ -1,0 +1,137 @@
+.profile {
+  display: flex;
+  align-items: stretch;
+  gap: var(--space-md);
+}
+
+.profileText {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+
+.headline {
+  font-size: var(--font-size-display);
+  font-weight: var(--font-weight-extrabold);
+  margin-bottom: var(--space-xl);
+}
+
+.role {
+  font-size: var(--font-size-heading-xl);
+  color: var(--color-primary);
+  font-weight: var(--font-weight-extrabold);
+  margin-bottom: var(--space-md);
+}
+
+.description {
+  font-size: var(--font-size-heading-md);
+  line-height: 1.5;
+}
+
+.links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-compact);
+  align-items: center;
+}
+
+.links a {
+  display: inline-flex;
+  gap: var(--space-xs);
+  align-items: center;
+  justify-content: center;
+
+  min-height: 44px;
+  padding-inline: var(--space-sm);
+  border: 1px solid color-mix(in srgb, var(--color-text) 10%, transparent);
+  border-radius: var(--border-radius-xl);
+  background-color: var(--color-background);
+  box-shadow: var(--shadow-subtle);
+
+  font-size: var(--font-size-small);
+  font-weight: var(--font-weight-semibold);
+
+  transition:
+    color 0.2s ease,
+    border-color 0.2s ease,
+    background-color 0.2s ease,
+    transform 0.2s ease;
+}
+
+.links a svg {
+  flex-shrink: 0;
+  font-size: var(--font-size-title);
+}
+
+.links a:hover {
+  border-color: color-mix(in srgb, var(--color-primary) 28%, transparent);
+  background-color: var(--color-primary-soft);
+  color: var(--color-primary);
+  transform: translateY(-2px);
+}
+
+.links a:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 3px;
+}
+.profileImage {
+  width: 260px;
+  height: 260px;
+  margin-left: auto;
+  object-fit: cover;
+  border-radius: var(--border-radius-xl);
+}
+
+@media (max-width: 768px) {
+  .headline {
+    margin-bottom: var(--space-xl);
+    font-size: clamp(40px, 11vw, 64px);
+    line-height: 1.15;
+  }
+
+  .profile {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-md);
+  }
+
+  /*
+     * profileText 박스를 레이아웃에서 없애서
+     * 내부 요소와 이미지를 order로 재배치
+     */
+  .profileText {
+    display: contents;
+  }
+
+  .role {
+    order: 1;
+    margin-bottom: 0;
+    font-size: clamp(30px, 8vw, 40px);
+  }
+
+  .profileImage {
+    order: 2;
+
+    width: min(260px, 70vw);
+    height: auto;
+    margin-left: 0;
+    aspect-ratio: 1;
+  }
+
+  .description {
+    order: 3;
+    font-size: var(--font-size-title);
+    line-height: 1.7;
+    word-break: keep-all;
+  }
+
+  .description br {
+    display: none;
+  }
+
+  .links {
+    order: 4;
+    flex-wrap: wrap;
+    gap: var(--space-compact);
+  }
+}

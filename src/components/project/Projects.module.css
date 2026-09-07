@@ -1,0 +1,342 @@
+.projectList {
+  display: grid;
+  gap: var(--space-lg);
+
+  width: min(100%, 900px);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.card {
+  min-width: 0;
+  overflow: hidden;
+
+  border: 1px solid color-mix(in srgb, var(--color-text) 8%, transparent);
+  border-radius: var(--border-radius-xl);
+  background-color: var(--color-background);
+  box-shadow: var(--shadow-card);
+
+  transition:
+    box-shadow 0.25s ease,
+    transform 0.25s ease;
+}
+
+.card:hover,
+.card:focus-within {
+  box-shadow: var(--shadow-card-hover);
+  transform: translateY(-4px);
+}
+
+.cardInner {
+  display: grid;
+  grid-template-columns: minmax(280px, 40%) minmax(0, 1fr);
+  min-height: 280px;
+}
+
+.imageFrame {
+  min-width: 0;
+  min-height: 280px;
+  overflow: hidden;
+  background-color: var(--color-surface-muted);
+}
+
+.thumbnail {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+
+  transition: transform 0.35s ease;
+}
+
+.card:hover .thumbnail,
+.card:focus-within .thumbnail {
+  transform: scale(1.025);
+}
+
+.content {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  padding: var(--space-md);
+}
+
+.cardHeader {
+  display: flex;
+  gap: var(--space-compact);
+  align-items: center;
+  min-width: 0;
+}
+
+.cardTitle {
+  overflow: hidden;
+
+  color: var(--color-text);
+  font-size: var(--font-size-heading-sm);
+  font-weight: var(--font-weight-extrabold);
+  line-height: 1.3;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.links {
+  display: flex;
+  flex: 0 0 auto;
+  gap: var(--space-xs);
+  align-items: center;
+}
+
+.iconLink {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+
+  color: color-mix(in srgb, var(--color-text) 82%, transparent);
+  font-size: 23px;
+
+  transition:
+    color 0.2s ease,
+    background-color 0.2s ease,
+    transform 0.2s ease;
+}
+
+.iconLink:hover {
+  color: var(--color-primary);
+  background-color: color-mix(
+    in srgb,
+    var(--color-primary) 10%,
+    var(--color-background)
+  );
+  transform: translateY(-1px);
+}
+
+.iconLink:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+.meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+
+  margin-top: var(--space-compact);
+
+  color: var(--color-text-subtle);
+  font-size: var(--font-size-small);
+  font-weight: var(--font-weight-bold);
+  line-height: 1.4;
+}
+
+.metaSeparator {
+  color: var(--color-text-faint);
+}
+
+.dates {
+  white-space: nowrap;
+}
+
+.techList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-xs);
+
+  margin: var(--space-md) 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.techTag {
+  padding: var(--space-xs) var(--space-sm);
+  border: 1px solid color-mix(in srgb, var(--color-primary) 18%, transparent);
+  border-radius: var(--border-radius-pill);
+  background-color: var(--color-primary-soft);
+
+  color: var(--color-primary);
+  font-size: var(--font-size-label);
+  font-weight: var(--font-weight-bold);
+  line-height: 1;
+}
+
+.summary {
+  margin-top: var(--space-sm);
+  margin-bottom: var(--space-md);
+
+  color: color-mix(in srgb, var(--color-text) 90%, transparent);
+  font-size: var(--font-size-small);
+  font-weight: var(--font-weight-bold);
+  line-height: 1.55;
+  word-break: keep-all;
+}
+
+.detailButton {
+  position: static;
+  align-self: flex-start;
+  margin-top: auto;
+
+  padding: var(--space-xs) var(--space-sm);
+  border: 1px solid transparent;
+  border-radius: var(--border-radius-pill);
+  background-color: var(--color-primary-soft);
+
+  color: var(--color-primary);
+  font-size: var(--font-size-caption);
+  font-weight: var(--font-weight-bold);
+  line-height: 1.2;
+  cursor: pointer;
+
+  transition:
+    color 0.2s ease,
+    background-color 0.2s ease,
+    transform 0.2s ease;
+}
+
+.detailButton:hover {
+  color: var(--color-background);
+  background-color: var(--color-primary);
+  transform: translateY(-1px);
+}
+
+.detailButton:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 3px;
+}
+
+.modal {
+  width: min(calc(100% - var(--space-sm) * 2), 560px);
+  padding: 28px;
+  border: 0;
+  border-radius: var(--border-radius-xl);
+  background-color: var(--color-background);
+  box-shadow: var(--shadow-modal);
+
+  color: var(--color-text);
+}
+
+.modal::backdrop {
+  background-color: var(--color-backdrop);
+}
+
+.modalHeader {
+  display: flex;
+  gap: var(--space-sm);
+  align-items: center;
+  justify-content: space-between;
+}
+
+.modalTitle {
+  font-size: var(--font-size-heading-sm);
+  font-weight: var(--font-weight-extrabold);
+  line-height: 1.3;
+}
+
+.closeButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background-color: var(--color-surface-subtle);
+
+  color: var(--color-text);
+  font-size: var(--font-size-heading-md);
+  line-height: 1;
+  cursor: pointer;
+}
+
+.closeButton:hover {
+  color: var(--color-primary);
+  background-color: var(--color-primary-soft);
+}
+
+.closeButton:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+.modalDescription {
+  margin-top: var(--space-md);
+  color: color-mix(in srgb, var(--color-text) 78%, transparent);
+  line-height: 1.7;
+  word-break: keep-all;
+}
+
+@media (max-width: 768px) {
+  .projectList {
+    gap: var(--space-md);
+  }
+
+  .card {
+    border-radius: var(--border-radius-xl);
+  }
+
+  .cardInner {
+    grid-template-columns: 1fr;
+    height: auto;
+  }
+
+  .imageFrame {
+    min-height: 0;
+    aspect-ratio: 16 / 9;
+  }
+
+  .content {
+    padding: var(--space-md);
+  }
+
+  .summary {
+    padding-right: 0;
+  }
+
+  .detailButton {
+    margin-top: var(--space-sm);
+  }
+
+  .cardHeader {
+    align-items: flex-start;
+  }
+
+  .cardTitle {
+    white-space: normal;
+  }
+
+  .meta {
+    margin-top: 10px;
+  }
+
+  .techList {
+    gap: var(--space-xs);
+    margin-top: var(--space-sm);
+  }
+
+  .techTag {
+    padding: var(--space-xs) var(--space-sm);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .card,
+  .thumbnail,
+  .iconLink,
+  .detailButton {
+    transition: none;
+  }
+
+  .card:hover,
+  .card:focus-within,
+  .card:hover .thumbnail,
+  .card:focus-within .thumbnail,
+  .iconLink:hover,
+  .detailButton:hover {
+    transform: none;
+  }
+}

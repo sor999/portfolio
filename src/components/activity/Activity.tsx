@@ -85,11 +85,7 @@ export default function Activity({ title, subtitle }: ActivityProps) {
   }, [activities])
 
   return (
-    <section
-      className={styles.section}
-      id="activity"
-      aria-labelledby="activity-title"
-    >
+    <section id="activity" aria-labelledby="activity-title">
       <SectionHeader id="activity-title" title={title} subtitle={subtitle} />
 
       <ol className={styles.timeline}>

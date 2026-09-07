@@ -1,0 +1,44 @@
+.card {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: var(--space-sm);
+  align-items: start;
+
+  padding: var(--space-md);
+  border: 1px solid color-mix(in srgb, var(--color-text) 10%, transparent);
+  border-radius: var(--border-radius-lg);
+  background-color: var(--color-background);
+  box-shadow: var(--shadow-skill-card);
+}
+
+.marker {
+  width: 10px;
+  height: 10px;
+  margin-top: 7px;
+  border-radius: 50%;
+  background-color: var(--color-primary);
+  box-shadow: 0 0 0 5px
+    color-mix(in srgb, var(--color-primary) 12%, transparent);
+}
+
+.name {
+  margin: 0 0 var(--space-xs);
+
+  color: var(--color-text);
+  font-size: var(--font-size-title);
+  font-weight: var(--font-weight-bold);
+  line-height: 1.4;
+}
+
+.description {
+  color: color-mix(in srgb, var(--color-text) 68%, transparent);
+  font-size: var(--font-size-small);
+  line-height: 1.6;
+  word-break: keep-all;
+}
+
+@media (max-width: 768px) {
+  .card {
+    padding: var(--space-sm);
+  }
+}
