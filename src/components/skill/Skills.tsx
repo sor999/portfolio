@@ -1,4 +1,4 @@
-가import { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 
 import { getSkillGroups } from '../../api/skill/getSkillGroups.ts'
 import type { SkillGroup, SkillProps } from '../../types/skill.types.ts'
