@@ -1,0 +1,145 @@
+.postList {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  border-top: 1px solid var(--color-border);
+  list-style: none;
+}
+
+.postItem {
+  border-bottom: 1px solid var(--color-border);
+}
+
+.postCard {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: var(--space-lg);
+  align-items: center;
+
+  min-height: 150px;
+  padding: calc(var(--space-sm) * 2) var(--space-md) var(--space-sm);
+
+  transition: background-color 0.2s ease;
+}
+
+.postItem:hover .postCard,
+.postItem:focus-within .postCard {
+  background-color: color-mix(
+    in srgb,
+    var(--color-primary) 3%,
+    var(--color-background)
+  );
+}
+
+.postContent {
+  min-width: 0;
+}
+
+.postTitle {
+  overflow: hidden;
+
+  color: var(--color-text);
+  font-size: var(--font-size-heading-md);
+  font-weight: var(--font-weight-extrabold);
+  line-height: 1.35;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  word-break: keep-all;
+}
+
+.postTitle a {
+  border-radius: var(--border-radius-sm);
+}
+
+.postTitle a:hover {
+  color: var(--color-primary);
+}
+
+.postTitle a:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 4px;
+}
+
+.postDescription {
+  overflow: hidden;
+
+  margin-top: 18px;
+
+  color: var(--color-text-muted);
+  font-size: var(--font-size-body);
+  line-height: 1.5;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  word-break: keep-all;
+}
+
+.postDate {
+  display: block;
+  margin-top: var(--space-xs);
+
+  color: var(--color-text-subtle);
+  font-size: var(--font-size-date);
+  font-weight: var(--font-weight-bold);
+  line-height: 1.4;
+}
+
+.postLink {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 48px;
+  height: 48px;
+  border: 2px solid var(--color-primary);
+  border-radius: 50%;
+
+  color: var(--color-primary);
+  font-size: 28px;
+
+  transition:
+    color 0.2s ease,
+    background-color 0.2s ease,
+    transform 0.2s ease;
+}
+
+.postLink:hover {
+  color: var(--color-background);
+  background-color: var(--color-primary);
+  transform: translateX(2px);
+}
+
+.postLink:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 4px;
+}
+
+@media (max-width: 768px) {
+  .postCard {
+    gap: var(--space-sm);
+    min-height: 0;
+    padding: var(--space-md) 0;
+  }
+
+  .postTitle {
+    font-size: var(--font-size-title);
+    overflow-wrap: break-word;
+    white-space: normal;
+  }
+
+  .postDescription {
+    margin-top: var(--space-compact);
+    font-size: var(--font-size-small);
+    overflow-wrap: break-word;
+    white-space: normal;
+  }
+
+  .postDate {
+    font-size: var(--font-size-label);
+  }
+
+  .postLink {
+    width: 40px;
+    height: 40px;
+    font-size: var(--font-size-heading-md);
+  }
+}

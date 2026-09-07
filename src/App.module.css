@@ -1,0 +1,17 @@
+.main {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-section);
+  /* 최대 너비*/
+  max-width: var(--content-width);
+  margin-inline: auto;
+  /*좌우 여백*/
+  padding-inline: var(--page-gutter);
+  /*위아래 여백*/
+  padding-block: 60px;
+  padding-bottom: var(--space-section);
+}
+
+.main > section {
+  scroll-margin-top: var(--section-scroll-margin);
+}
