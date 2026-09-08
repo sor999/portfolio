@@ -6,6 +6,10 @@ const navItems = [
     label: 'ABOUT',
   },
   {
+    id: 'chatbot',
+    label: 'ASK ME',
+  },
+  {
     id: 'career',
     label: 'CAREER',
   },

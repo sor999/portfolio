@@ -98,10 +98,13 @@ export default function WordCloudChatbot({ title, subtitle }: ChatbotProps) {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           selectedKeyword: keywordContext,
-          messages: nextMessages.map(({ role, content }) => ({
-            role,
-            content,
-          })),
+          messages: nextMessages
+            .filter((message) => !message.isError && message.id !== 'welcome')
+            .slice(-10)
+            .map(({ role, content }) => ({
+              role,
+              content,
+            })),
         }),
       })
       const data = (await response.json()) as ChatResponse
@@ -133,7 +136,7 @@ export default function WordCloudChatbot({ title, subtitle }: ChatbotProps) {
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault()
-    void sendQuestion(draft)
+    void sendQuestion(draft, selectedKeyword?.label ?? null)
   }
 
   return (

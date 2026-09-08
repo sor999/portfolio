@@ -20,6 +20,8 @@ export default function App() {
       <main className={styles.main}>
         <About />
 
+        <WordCloudChatbot title="ASK ME" subtitle="키워드로 알아보는 나" />
+
         <Career title="CAREER" subtitle="지금까지의 여정" />
 
         <Skills title="SKILL" subtitle="기술 스택" />

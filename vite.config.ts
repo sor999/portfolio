@@ -58,16 +58,8 @@ function localChatApi(): Plugin {
 export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, '.', '')
 
-  if (env.GROQ_API_KEY && !process.env.GROQ_API_KEY) {
-    process.env.GROQ_API_KEY = env.GROQ_API_KEY
-  }
-
-  if (env.GROQ_MODEL && !process.env.GROQ_MODEL) {
-    process.env.GROQ_MODEL = env.GROQ_MODEL
-  }
-
-  if (env.PORTFOLIO_PROFILE_CONTEXT && !process.env.PORTFOLIO_PROFILE_CONTEXT) {
-    process.env.PORTFOLIO_PROFILE_CONTEXT = env.PORTFOLIO_PROFILE_CONTEXT
+  for (const [name, value] of Object.entries(env)) {
+    if (value && !process.env[name]) process.env[name] = value
   }
 
   return {
