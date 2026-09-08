@@ -45,6 +45,24 @@ export default function ActivityCard({
         <h3 className={styles.title}>{activity.title}</h3>
         <p className={styles.description}>{activity.description}</p>
       </article>
+
+      <aside
+        className={`${styles.detailCard} ${isActive ? styles.detailCardVisible : ''}`}
+        aria-hidden={!isActive}
+        aria-label={`${activity.title} 상세 내용`}
+      >
+        <h4 className={styles.detailTitle}>{activity.title}</h4>
+
+        {activity.role && <span className={styles.role}>{activity.role}</span>}
+
+        {activity.details.length > 0 && (
+          <ul className={styles.detailList}>
+            {activity.details.map((detail) => (
+              <li key={detail}>{detail}</li>
+            ))}
+          </ul>
+        )}
+      </aside>
     </li>
   )
 }

@@ -32,6 +32,8 @@ export default function App() {
 
         <Blog title="BLOGS" subtitle="공부하고 기록한 글들" />
 
+        <WordCloudChatbot title="ASK ME" subtitle="나를 표현하는 키워드" />
+
         <Closing
           headline="여기까지 봐주셔서 감사합니다"
           description="더 나은 제품을 만드는 과정을 좋아합니다. 함께 일하고 싶으시다면 편하게 연락 주세요."

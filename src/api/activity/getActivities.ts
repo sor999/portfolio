@@ -4,7 +4,8 @@ import type { ActivityItem } from '../../types/activity.types.ts'
 export async function getActivities(): Promise<ActivityItem[]> {
   const { data, error } = await supabase
     .from('activities')
-    .select('id, category, start_date, end_date, title, description')
+    .select(
+      'id, category, start_date, end_date, title, description, role, details')
     .order('start_date', { ascending: false })
 
   if (error) {
@@ -18,5 +19,7 @@ export async function getActivities(): Promise<ActivityItem[]> {
     endDate: activity.end_date,
     title: activity.title,
     description: activity.description,
+    role: activity.role,
+    details: activity.details,
   }))
 }

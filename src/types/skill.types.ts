@@ -2,6 +2,7 @@ export interface SkillItem {
   id: number
   name: string
   description: string
+  iconUrl: string | null
 }
 
 export interface SkillGroup {
