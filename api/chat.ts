@@ -1,3 +1,7 @@
+import { readFile } from 'node:fs/promises'
+import { join } from 'node:path'
+import { createClient } from '@supabase/supabase-js'
+
 interface ChatMessage {
   role: 'user' | 'assistant'
   content: string
@@ -25,16 +29,13 @@ interface GroqErrorResponse {
   }
 }
 
-const DEFAULT_PROFILE_CONTEXT = `
-`.trim()
-
-function getProfileContext() {
-  const configuredContext = process.env.PORTFOLIO_PROFILE_CONTEXT?.replace(
-    /\\n/g,
-    '\n',
-  ).trim()
-
-  return (configuredContext || DEFAULT_PROFILE_CONTEXT).slice(0, 12_000)
+async function getProfileContext() {
+  const context = await readFile(
+    join(process.cwd(), 'content/profile-context.md'),
+    'utf8',
+  )
+  if (!context.trim()) throw new Error('프로필 컨텍스트 파일이 비어 있습니다.')
+  return context.trim()
 }
 
 const MAX_MESSAGE_LENGTH = 800
@@ -57,20 +58,39 @@ function getAnswer(response: GroqChatCompletion) {
   return response.choices?.[0]?.message?.content?.trim() ?? ''
 }
 
+function normalizeQuestion(question: string) {
+  return question.trim().replace(/\s+/g, ' ').toLowerCase()
+}
+
+async function getSavedAnswer(question: string, keyword: string) {
+  const url = process.env.SUPABASE_URL || process.env.VITE_SUPABASE_URL
+  const key =
+    process.env.SUPABASE_ANON_KEY || process.env.VITE_SUPABASE_ANON_KEY
+  if (!url || !key) return null
+
+  const supabase = createClient(url, key)
+  let query = supabase
+    .from('chatbot_questions')
+    .select('question, answer, chatbot_keywords!inner(keyword)')
+    .eq('normalized_question', normalizeQuestion(question))
+    .not('answer', 'is', null)
+
+  if (keyword) query = query.eq('chatbot_keywords.keyword', keyword)
+
+  const { data, error } = await query.limit(2)
+  if (error) throw error
+  // 키워드 없이 같은 질문에 서로 다른 답변이 있으면 기본 정보로 답한다.
+  const answers = [
+    ...new Set(data.map((row) => row.answer?.trim()).filter(Boolean)),
+  ]
+  return answers.length === 1 ? answers[0] : null
+}
+
 async function handleChatRequest(request: Request) {
   if (request.method !== 'POST') {
     return Response.json(
       { error: '지원하지 않는 요청 방식입니다.' },
       { status: 405, headers: { Allow: 'POST' } },
-    )
-  }
-
-  const apiKey = process.env.GROQ_API_KEY
-
-  if (!apiKey) {
-    return Response.json(
-      { error: '챗봇 서버 설정이 완료되지 않았습니다.' },
-      { status: 503 },
     )
   }
 
@@ -85,7 +105,11 @@ async function handleChatRequest(request: Request) {
     )
   }
 
-  if (!Array.isArray(body.messages) || !body.messages.every(isChatMessage)) {
+  if (
+    !body ||
+    !Array.isArray(body.messages) ||
+    !body.messages.every(isChatMessage)
+  ) {
     return Response.json(
       { error: '대화 내용을 확인해 주세요.' },
       { status: 400 },
@@ -98,29 +122,53 @@ async function handleChatRequest(request: Request) {
       ? body.selectedKeyword.trim().slice(0, 30)
       : ''
 
-  if (!messages.some((message) => message.role === 'user')) {
+  const question = messages.at(-1)
+
+  if (!question || question.role !== 'user') {
     return Response.json({ error: '질문을 입력해 주세요.' }, { status: 400 })
   }
 
-  const instructions = `
-너는 박현제의 포트폴리오를 안내하는 AI 인터뷰 도우미다.
-아래 공개 프로필 정보만 근거로 한국어로 답한다.
-답변은 친근하고 구체적으로 작성하되 2~3문장, 공백 포함 350자 이내로 유지한다.
-답변이 길어질 것 같으면 세부 내용을 덜어내고 반드시 완결된 문장으로 끝낸다.
-마지막 문장은 마침표로 끝낸다.
-박현제인 것처럼 1인칭으로 말하지 말고, "현제님은"처럼 안내자 관점으로 답한다.
-프로필에 없는 성과, 수치, 회사 경험, 프로젝트 일화를 만들어내지 않는다.
-근거가 없는 세부 경험을 물으면 현재 포트폴리오에 기록되지 않은 내용이라고 솔직하게 말하고, 확인 가능한 관련 정보로 이어서 답한다.
-포트폴리오와 무관한 질문에는 박현제의 경험과 작업 방식에 관한 질문을 부탁한다.
+  try {
+    const answer = await getSavedAnswer(question.content, selectedKeyword)
+    if (answer) return Response.json({ answer })
+  } catch (error) {
+    console.error('저장된 챗봇 답변 조회 실패', error)
+  }
 
-[공개 프로필]
-${getProfileContext()}
-
-[현재 선택된 키워드]
-${selectedKeyword || '없음'}
-  `.trim()
+  const apiKey = process.env.GROQ_API_KEY
+  if (!apiKey) {
+    return Response.json(
+      { error: '챗봇 서버 설정이 완료되지 않았습니다.' },
+      { status: 503 },
+    )
+  }
 
   try {
+    const profileContext = await getProfileContext()
+    const instructions = {
+      role: '박현제의 포트폴리오를 안내하는 AI 인터뷰 도우미',
+      language: '한국어',
+      responseStyle: {
+        tone: '친근하고 구체적으로',
+        sentences: '2~3문장',
+        maxCharactersIncludingSpaces: 350,
+        perspective:
+          '박현제인 것처럼 1인칭으로 말한다.',
+        ending:
+          '답변이 길어지면 세부 내용을 덜어내고 반드시 완결된 문장으로 끝낸다. 마지막 문장은 마침표로 끝낸다.',
+      },
+      rules: [
+        '공개 프로필 정보만 근거로 답한다.',
+        '프로필에 없는 성과, 수치, 회사 경험, 프로젝트 일화를 만들어내지 않는다.',
+        '근거가 없는 세부 경험을 물으면 현재 포트폴리오에 기록되지 않은 내용이라고 솔직하게 말하고, 확인 가능한 관련 정보로 이어서 답한다.',
+        '포트폴리오와 무관한 질문에는 박현제의 경험과 작업 방식에 관한 질문을 부탁한다.',
+      ],
+      context: {
+        publicProfile: profileContext,
+        selectedKeyword: selectedKeyword || null,
+      },
+    }
+
     const groqResponse = await fetch(
       'https://api.groq.com/openai/v1/chat/completions',
       {
@@ -131,7 +179,10 @@ ${selectedKeyword || '없음'}
         },
         body: JSON.stringify({
           model: process.env.GROQ_MODEL || 'qwen/qwen3.8-27b',
-          messages: [{ role: 'system', content: instructions }, ...messages],
+          messages: [
+            { role: 'system', content: JSON.stringify(instructions) },
+            ...messages,
+          ],
           max_completion_tokens: 700,
           temperature: 0.4,
         }),
