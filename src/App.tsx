@@ -20,6 +20,8 @@ export default function App() {
       <main className={styles.main}>
         <About />
 
+        <WordCloudChatbot title="ASK ME" subtitle="키워드로 알아보는 나" />
+
         <Career title="CAREER" subtitle="지금까지의 여정" />
 
         <Skills title="SKILL" subtitle="기술 스택" />
@@ -29,8 +31,6 @@ export default function App() {
         <Projects title="PROJECTS" subtitle="프로젝트" />
 
         <Blog title="BLOGS" subtitle="공부하고 기록한 글들" />
-
-        <WordCloudChatbot title="ASK ME" subtitle="나를 표현하는 키워드" />
 
         <Closing
           headline="여기까지 봐주셔서 감사합니다"
