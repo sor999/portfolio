@@ -155,8 +155,7 @@
 
 .selectedKeyword {
   display: block;
-  margin-top: 6px;
-
+  margin-top: var(--space-compact);
   color: var(--color-primary);
   font-size: var(--font-size-heading-md);
   font-weight: var(--font-weight-extrabold);
