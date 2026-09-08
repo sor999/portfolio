@@ -5,6 +5,8 @@ export interface ActivityItem {
   endDate: string | null
   title: string
   description: string
+  role: string | null
+  details: string[]
 }
 
 export interface ActivityProps {

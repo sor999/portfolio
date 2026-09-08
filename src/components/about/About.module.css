@@ -5,12 +5,15 @@
 }
 
 .profileText {
+  flex: 3;
+  min-width: 0;
   display: flex;
   flex-direction: column;
   gap: var(--space-md);
 }
 
 .headline {
+  white-space: pre-line;
   font-size: var(--font-size-display);
   font-weight: var(--font-weight-extrabold);
   margin-bottom: var(--space-xl);
@@ -24,8 +27,9 @@
 }
 
 .description {
-  font-size: var(--font-size-heading-md);
-  line-height: 1.5;
+  white-space: pre-line;
+  font-size: var(--font-size-heading-sm);
+  line-height: 2;
 }
 
 .links {
@@ -74,10 +78,17 @@
   outline: 2px solid var(--color-primary);
   outline-offset: 3px;
 }
+.profileImageBox {
+  flex: 1;
+  min-width: 0;
+  align-self: flex-end;
+}
+
 .profileImage {
-  width: 260px;
-  height: 260px;
-  margin-left: auto;
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1;
   object-fit: cover;
   border-radius: var(--border-radius-xl);
 }
@@ -91,31 +102,25 @@
 
   .profile {
     flex-direction: column;
-    align-items: flex-start;
+    align-items: center;
     gap: var(--space-md);
   }
 
-  /*
-     * profileText 박스를 레이아웃에서 없애서
-     * 내부 요소와 이미지를 order로 재배치
-     */
   .profileText {
-    display: contents;
+    flex: initial;
+    width: 100%;
+  }
+
+  .profileImageBox {
+    flex: initial;
+    width: min(260px, 70vw);
+    align-self: center;
   }
 
   .role {
     order: 1;
     margin-bottom: 0;
     font-size: clamp(30px, 8vw, 40px);
-  }
-
-  .profileImage {
-    order: 2;
-
-    width: min(260px, 70vw);
-    height: auto;
-    margin-left: 0;
-    aspect-ratio: 1;
   }
 
   .description {

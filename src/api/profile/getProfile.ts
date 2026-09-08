@@ -1,9 +1,9 @@
-import type { AboutProps } from '../../types/about.types.ts'
+import type { Profile } from '../../types/profile.types.ts'
 import { supabase } from '../supabase.ts'
 
-export async function getAbout(): Promise<AboutProps> {
+export async function getProfile(): Promise<Profile> {
   const { data, error } = await supabase
-    .from('about')
+    .from('profile')
     .select('headline, role, description, profile_image_url')
     .single()
 

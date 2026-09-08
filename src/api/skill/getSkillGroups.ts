@@ -5,7 +5,7 @@ import { supabase } from '../supabase.ts'
 export async function getSkillGroups(): Promise<SkillGroup[]> {
   const { data, error } = await supabase
     .from('skill_categories')
-    .select('id, name, skills(id, name, description)')
+    .select('id, name, skills(id, name, description, icon_url)')
     .order('sort_order')
 
   if (error) {
@@ -15,6 +15,11 @@ export async function getSkillGroups(): Promise<SkillGroup[]> {
   return data.map((category) => ({
     id: category.id,
     category: category.name,
-    items: category.skills,
+    items: category.skills.map((skill) => ({
+      id: skill.id,
+      name: skill.name,
+      description: skill.description,
+      iconUrl: skill.icon_url,
+    })),
   }))
 }
