@@ -13,11 +13,11 @@
   --color-backdrop: rgb(15 23 42 / 48%);
   --color-on-primary: #ffffff;
 
-  --font-size-display: 96px;
+  --font-size-display: 88px;
   --font-size-heading-xl: clamp(40px, 5.5vw, 48px);
   --font-size-heading-md: clamp(20px, 3vw, 24px);
   --font-size-heading-sm: clamp(20px, 2.5vw, 22px);
-  --font-size-title: 경18px;
+  --font-size-title: 18px;
   --font-size-body: 16px;
   --font-size-date: 15px;
   --font-size-small: 14px;
