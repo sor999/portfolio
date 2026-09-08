@@ -5,6 +5,7 @@ export interface ProjectItem {
   summary: string
   description: string
   thumbnailUrl: string
+  screenshotUrls: string[]
   techStack: string[]
   githubUrl: string | null
   demoUrl: string | null

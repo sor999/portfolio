@@ -5,7 +5,7 @@ export async function getProjects(): Promise<ProjectItem[]> {
   const { data, error } = await supabase
     .from('projects')
     .select(
-      'id, title, subtitle, summary, description, thumbnail_url, tech_stack, github_url, demo_url, start_date, end_date',
+      'id, title, subtitle, summary, description, thumbnail_url, screenshot_urls, tech_stack, github_url, demo_url, start_date, end_date',
     )
     .order('start_date', { ascending: false })
 
@@ -20,6 +20,7 @@ export async function getProjects(): Promise<ProjectItem[]> {
     summary: project.summary,
     description: project.description,
     thumbnailUrl: project.thumbnail_url,
+    screenshotUrls: project.screenshot_urls ?? [],
     techStack: project.tech_stack,
     githubUrl: project.github_url,
     demoUrl: project.demo_url,
