@@ -1,9 +1,4 @@
 .card {
-  display: grid;
-  grid-template-columns: auto minmax(0, 1fr);
-  gap: var(--space-sm);
-  align-items: start;
-
   padding: var(--space-md);
   border: 1px solid color-mix(in srgb, var(--color-text) 10%, transparent);
   border-radius: var(--border-radius-lg);
@@ -11,10 +6,22 @@
   box-shadow: var(--shadow-skill-card);
 }
 
+.heading {
+  display: flex;
+  gap: var(--space-compact);
+  align-items: center;
+}
+
+.icon {
+  width: 28px;
+  height: 28px;
+  object-fit: contain;
+}
+
 .marker {
   width: 10px;
   height: 10px;
-  margin-top: 7px;
+  margin: 9px;
   border-radius: 50%;
   background-color: var(--color-primary);
   box-shadow: 0 0 0 5px
@@ -22,7 +29,7 @@
 }
 
 .name {
-  margin: 0 0 var(--space-xs);
+  margin: 0;
 
   color: var(--color-text);
   font-size: var(--font-size-title);
@@ -31,6 +38,8 @@
 }
 
 .description {
+  margin-top: var(--space-compact);
+
   color: color-mix(in srgb, var(--color-text) 68%, transparent);
   font-size: var(--font-size-small);
   line-height: 1.6;

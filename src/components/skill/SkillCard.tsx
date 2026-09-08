@@ -9,12 +9,24 @@ interface SkillCardProps {
 export default function SkillCard({ skill }: SkillCardProps) {
   return (
     <li className={styles.card}>
-      <span className={styles.marker} aria-hidden="true" />
-
-      <div>
+      <div className={styles.heading}>
+        {skill.iconUrl ? (
+          <img
+            className={styles.icon}
+            src={skill.iconUrl}
+            alt=""
+            width="28"
+            height="28"
+            loading="lazy"
+            decoding="async"
+          />
+        ) : (
+          <span className={styles.marker} aria-hidden="true" />
+        )}
         <h4 className={styles.name}>{skill.name}</h4>
-        <p className={styles.description}>{skill.description}</p>
       </div>
+
+      <p className={styles.description}>{skill.description}</p>
     </li>
   )
 }
