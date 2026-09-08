@@ -8,6 +8,7 @@ import Closing from './components/closing/Closing'
 import Projects from './components/project/Projects.tsx'
 import Skills from './components/skill/Skills.tsx'
 import Navbar from './components/navbar/Navbar.tsx'
+import WordCloudChatbot from './components/chatbot/WordCloudChatbot.tsx'
 
 import styles from './App.module.css'
 
@@ -28,6 +29,8 @@ export default function App() {
         <Projects title="PROJECTS" subtitle="프로젝트" />
 
         <Blog title="BLOGS" subtitle="공부하고 기록한 글들" />
+
+        <WordCloudChatbot title="ASK ME" subtitle="나를 표현하는 키워드" />
 
         <Closing
           headline="여기까지 봐주셔서 감사합니다"
