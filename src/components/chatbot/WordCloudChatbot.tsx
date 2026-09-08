@@ -6,7 +6,6 @@ import { getChatbotKeywords } from '../../api/chatbot/getChatbotKeywords.ts'
 import type { ChatbotKeyword, ChatbotProps } from '../../types/chatbot.types.ts'
 import { SectionHeader } from '../sectionHeader/SectionHeader.tsx'
 import styles from './WordCloudChatbot.module.css'
-import type { ProjectProps } from '../../types/project.types.ts'
 
 interface ChatMessage {
   id: string
