@@ -23,7 +23,7 @@ const initialMessage: ChatMessage = {
   id: 'welcome',
   role: 'assistant',
   content:
-    '안녕하세요. 현제님의 작업 방식과 경험이 궁금하다면 단어를 골라보세요. 직접 질문해도 좋아요.',
+    '안녕하세요. 저의 작업 방식과 경험이 궁금하다면 단어를 골라보세요. 직접 질문해도 좋아요.',
 }
 
 function createMessage(
