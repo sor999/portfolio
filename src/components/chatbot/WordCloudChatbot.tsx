@@ -6,7 +6,6 @@ import { getChatbotKeywords } from '../../api/chatbot/getChatbotKeywords.ts'
 import type { ChatbotKeyword, ChatbotProps } from '../../types/chatbot.types.ts'
 import { SectionHeader } from '../sectionHeader/SectionHeader.tsx'
 import styles from './WordCloudChatbot.module.css'
-import type { ProjectProps } from '../../types/project.types.ts'
 
 interface ChatMessage {
   id: string
@@ -99,10 +98,13 @@ export default function WordCloudChatbot({ title, subtitle }: ChatbotProps) {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           selectedKeyword: keywordContext,
-          messages: nextMessages.map(({ role, content }) => ({
-            role,
-            content,
-          })),
+          messages: nextMessages
+            .filter((message) => !message.isError && message.id !== 'welcome')
+            .slice(-10)
+            .map(({ role, content }) => ({
+              role,
+              content,
+            })),
         }),
       })
       const data = (await response.json()) as ChatResponse
@@ -134,7 +136,7 @@ export default function WordCloudChatbot({ title, subtitle }: ChatbotProps) {
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault()
-    void sendQuestion(draft)
+    void sendQuestion(draft, selectedKeyword?.label ?? null)
   }
 
   return (
