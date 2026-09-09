@@ -1,21 +1,17 @@
-import { useEffect, useRef, useState } from 'react'
+import { useQuery } from '@tanstack/react-query'
+import { useEffect, useRef } from 'react'
 
 import { getSkillGroups } from '../../api/skill/getSkillGroups.ts'
-import type { SkillGroup, SkillProps } from '../../types/skill.types.ts'
+import type { SkillProps } from '../../types/skill.types.ts'
 import { SectionHeader } from '../sectionHeader/SectionHeader.tsx'
 import SkillCard from './SkillCard.tsx'
 import styles from './Skills.module.css'
 
 export default function Skills({ title, subtitle }: SkillProps) {
-  const [groups, setGroups] = useState<SkillGroup[]>([])
-
-  useEffect(() => {
-    void getSkillGroups()
-      .then(setGroups)
-      .catch((error) => {
-        console.error('기술 조회 실패', error)
-      })
-  }, [])
+  const { data: groups = [] } = useQuery({
+    queryKey: ['skillGroups'],
+    queryFn: getSkillGroups,
+  })
 
   const groupsRef = useRef<HTMLDivElement>(null)
 

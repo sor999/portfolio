@@ -1,3 +1,4 @@
+import { useQuery } from '@tanstack/react-query'
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 
 import { getActivities } from '../../api/activity/getActivities.ts'
@@ -6,8 +7,13 @@ import { SectionHeader } from '../sectionHeader/SectionHeader.tsx'
 import ActivityCard from './ActivityCard'
 import styles from './Activity.module.css'
 
+const emptyActivities: ActivityItem[] = []
+
 export default function Activity({ title, subtitle }: ActivityProps) {
-  const [activities, setActivities] = useState<ActivityItem[]>([])
+  const { data: activities = emptyActivities } = useQuery({
+    queryKey: ['activities'],
+    queryFn: getActivities,
+  })
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null)
   const [activeActivityId, setActiveActivityId] = useState<number | null>(null)
   const activityRefs = useRef(new Map<number, HTMLLIElement>())
@@ -39,14 +45,6 @@ export default function Activity({ title, subtitle }: ActivityProps) {
         : activities,
     [activities, selectedCategory],
   )
-
-  useEffect(() => {
-    void getActivities()
-      .then(setActivities)
-      .catch((error) => {
-        console.error('활동 조회 실패', error)
-      })
-  }, [])
 
   const registerActivity = useCallback(
     (activityId: number, element: HTMLLIElement | null) => {

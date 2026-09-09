@@ -1,8 +1,10 @@
+import { useQuery, useMutation } from '@tanstack/react-query'
 import { useEffect, useRef, useState } from 'react'
 import type { CSSProperties, FormEvent } from 'react'
 import { FiSend } from 'react-icons/fi'
 
 import { getChatbotKeywords } from '../../api/chatbot/getChatbotKeywords.ts'
+import { postChat } from '../../api/chatbot/sendChat.ts'
 import type { ChatbotKeyword, ChatbotProps } from '../../types/chatbot.types.ts'
 import { SectionHeader } from '../sectionHeader/SectionHeader.tsx'
 import styles from './WordCloudChatbot.module.css'
@@ -14,16 +16,11 @@ interface ChatMessage {
   isError?: boolean
 }
 
-interface ChatResponse {
-  answer?: string
-  error?: string
-}
-
 const initialMessage: ChatMessage = {
   id: 'welcome',
   role: 'assistant',
   content:
-    '안녕하세요. 현제님의 작업 방식과 경험이 궁금하다면 단어를 골라보세요. 직접 질문해도 좋아요.',
+    '안녕하세요. 저의 작업 방식과 경험이 궁금하다면 단어를 골라보세요. 직접 질문해도 좋아요.',
 }
 
 function createMessage(
@@ -40,24 +37,22 @@ function createMessage(
 }
 
 export default function WordCloudChatbot({ title, subtitle }: ChatbotProps) {
-  const [keywords, setKeywords] = useState<ChatbotKeyword[]>([])
+  const { data: keywords = [] } = useQuery({
+    queryKey: ['chatbotKeywords'],
+    queryFn: getChatbotKeywords,
+  })
   const [selectedKeyword, setSelectedKeyword] = useState<ChatbotKeyword | null>(
     null,
   )
   const [messages, setMessages] = useState<ChatMessage[]>([initialMessage])
   const [draft, setDraft] = useState('')
-  const [isLoading, setIsLoading] = useState(false)
+  const { mutateAsync: sendChat, isPending: isLoading } = useMutation({
+    mutationFn: postChat,
+    retry: false,
+  })
   const [showSuggestedQuestions, setShowSuggestedQuestions] = useState(false)
   const inputRef = useRef<HTMLInputElement>(null)
   const messageListRef = useRef<HTMLDivElement>(null)
-
-  useEffect(() => {
-    void getChatbotKeywords()
-      .then(setKeywords)
-      .catch((error) => {
-        console.error('챗봇 키워드 조회 실패', error)
-      })
-  }, [])
 
   useEffect(() => {
     const messageList = messageListRef.current
@@ -90,29 +85,15 @@ export default function WordCloudChatbot({ title, subtitle }: ChatbotProps) {
     setMessages(nextMessages)
     setDraft('')
     setShowSuggestedQuestions(false)
-    setIsLoading(true)
 
     try {
-      const response = await fetch('/api/chat', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          selectedKeyword: keywordContext,
-          messages: nextMessages
-            .filter((message) => !message.isError && message.id !== 'welcome')
-            .slice(-10)
-            .map(({ role, content }) => ({
-              role,
-              content,
-            })),
-        }),
+      const answer = await sendChat({
+        selectedKeyword: keywordContext,
+        messages: nextMessages
+          .filter((message) => !message.isError && message.id !== 'welcome')
+          .slice(-10)
+          .map(({ role, content }) => ({ role, content })),
       })
-      const data = (await response.json()) as ChatResponse
-      const answer = data.answer
-
-      if (!response.ok || !answer) {
-        throw new Error(data.error || '답변을 불러오지 못했습니다.')
-      }
 
       setMessages((currentMessages) => [
         ...currentMessages,
@@ -129,7 +110,6 @@ export default function WordCloudChatbot({ title, subtitle }: ChatbotProps) {
         createMessage('assistant', message, true),
       ])
     } finally {
-      setIsLoading(false)
       inputRef.current?.focus()
     }
   }

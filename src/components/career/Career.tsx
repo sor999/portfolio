@@ -1,7 +1,7 @@
-import { useEffect, useState } from 'react'
+import { useQuery } from '@tanstack/react-query'
 
 import { getCareers } from '../../api/career/getCareers.ts'
-import type { CareerItem, CareerProps } from '../../types/career.types.ts'
+import type { CareerProps } from '../../types/career.types.ts'
 import { SectionHeader } from '../sectionHeader/SectionHeader.tsx'
 import styles from './Career.module.css'
 
@@ -12,15 +12,10 @@ function formatCareerDate(date: string) {
 }
 
 export default function Career({ title, subtitle }: CareerProps) {
-  const [careers, setCareers] = useState<CareerItem[]>([])
-
-  useEffect(() => {
-    void getCareers()
-      .then(setCareers)
-      .catch((error) => {
-        console.error('경력 조회 실패', error)
-      })
-  }, [])
+  const { data: careers = [] } = useQuery({
+    queryKey: ['careers'],
+    queryFn: getCareers,
+  })
 
   return (
     <section id="career" aria-labelledby="career-title">
