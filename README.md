@@ -5,7 +5,7 @@
 
 ## URL
 
-- [배포 사이트](https://hyunje-portfolio.vercel.app/)
+- [배포 사이트](https://hyunje.vercel.app/)
 - [이슈](https://github.com/sor999/portfolio/issues?q=is%3Aissue%20state%3Aclosed)
 - [풀리퀘스트](https://github.com/sor999/portfolio/pulls?q=is%3Apr+is%3Aclosed)
 
