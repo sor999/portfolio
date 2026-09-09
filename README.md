@@ -58,17 +58,19 @@ npm run dev
 
 터미널에 표시되는 주소로 접속합니다. 기본 주소는 `http://localhost:5173`이며, 포트가 사용 중이면 다른 포트로 실행될 수 있습니다.
 
+
 ### Supabase 테이블 설계
 
-| 테이블                       | 데이터                                  |
-| ---------------------------- | --------------------------------------- |
-| `profile`                    | 자기소개와 프로필 이미지                |
-| `careers`                    | 경력                                    |
-| `skill_categories`, `skills` | 기술 분류와 하위 기술                   |
-| `activities`                 | 활동 분류, 기간, 역할과 상세 내용       |
-| `projects`                   | 프로젝트 설명, 기술 스택, 이미지와 링크 |
-| `posts`                      | 블로그 글                               |
-| `chatbot_keywords`           | 워드클라우드 배치와 추천 질문           |
+| 테이블 | 데이터  |
+| --- | --- |
+| `profile` | 자기소개와 프로필 이미지 |
+| `careers` | 경력 |
+| `skill_categories`, `skills` | 기술 분류와 하위 기술 |
+| `activities` | 활동 분류, 기간, 역할과 상세 내용 |
+| `projects` | 프로젝트 설명, 기술 스택, 이미지와 링크 |
+| `posts` | 블로그 글 |
+| `chatbot_keywords` | 워드클라우드 키워드와 배치 정보 |
+| `chatbot_questions` | 키워드별 추천 질문과 노출 순서 |
 
 
 
