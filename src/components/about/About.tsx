@@ -1,20 +1,14 @@
-import { useEffect, useState } from 'react'
+import { useQuery } from '@tanstack/react-query'
 import { getProfile } from '../../api/profile/getProfile'
-import type { Profile } from '../../types/profile.types'
 import styles from './About.module.css'
 import { FaGithub, FaLinkedinIn } from 'react-icons/fa'
 import { FiMail } from 'react-icons/fi'
 
 export default function About() {
-  const [profile, setProfile] = useState<Profile | null>(null)
-
-  useEffect(() => {
-    void getProfile()
-      .then(setProfile)
-      .catch((error) => {
-        console.error('자기소개 조회 실패', error)
-      })
-  }, [])
+  const { data: profile } = useQuery({
+    queryKey: ['profile'],
+    queryFn: getProfile,
+  })
 
   if (!profile) return null
 
